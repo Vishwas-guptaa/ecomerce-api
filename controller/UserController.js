@@ -196,6 +196,36 @@ class UserController {
       console.log(error);
     }
   };
+
+  static get_user_detail = async(req,res) =>{
+    try {
+       console.log(req.user);
+      const user = await UserModel.findById(req.user.id);
+
+      res.status(200).json({
+        success: true,
+        user,
+      });
+    } catch (error) {
+      console.log(error);
+    }  
+  }
+   
+  static get_all_user = async(req,res) =>{
+    try {
+      // console.log(req.user);
+      const getalluser = await UserModel.find();
+
+      res.status(200).json({
+        success: true,
+        getalluser,
+      });
+    } catch (error) {
+      console.log(error);
+    }  
+  }
+
+
 }
 
 module.exports = UserController;
