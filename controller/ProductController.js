@@ -24,7 +24,7 @@ class ProductController {
       // console.log(req.body);
       const { product_name, product_price, product_rating } = req.body;
 
-      const result = await new ProductModel({
+      const data = await new ProductModel({
         product_name: product_name,
         product_price: product_price,
         product_rating: product_rating,
@@ -34,26 +34,26 @@ class ProductController {
         },
       });
 
-      await result.save();
-      // console.log(result);
+      await data.save();
+      // console.log(data);
       res
         .status(201)
-        .json({ status: "sucess", message: "Registration Successfully" });
+        .json({ status: "sucess", message: "Product Add Successfully" });
     } catch (error) {
       console.log(error);
       res.status(401).json({
         status: "failed",
-        message: "registration failed",
+        message: "Product failed",
       });
     }
   };
 
   static productdisplay = async (req, res) => {
     try {
-      const result = await ProductModel.find();
+      const data = await ProductModel.find();
       res.status(201).json({
         status: true,
-        result,
+        data,
       });
     } catch (error) {
       console.log(error);
@@ -63,17 +63,17 @@ class ProductController {
   static productDelete =async(req,res)=>{
     try{
 
-       const result = await ProductModel.findByIdAndDelete(req.params.id)
+       const data = await ProductModel.findByIdAndDelete(req.params.id)
 
        
        res.status(201).json({
-        sucess:true,result,message:'product will be deleted'
+        sucess:true,data,message:'product will be deleted'
        })
     }catch(error){
       console.log(error)
 
       res.status(501).json({
-        sucess:false,result:error,message:'internal server error'
+        sucess:false,error,message:'internal server error'
        })
     }
   }
