@@ -6,6 +6,7 @@ const UserController = require("../controller/UserController");
 //product controller
 route.post("/productinsert", ProductController.productinsert);
 route.get("/productdisplay", ProductController.productdisplay);
+route.delete("/productdelete/:id", ProductController.productDelete);
 //user insert
 route.post("/userinsert", UserController.userinsert);
 route.post("/verifylogin", UserController.verifylogin);

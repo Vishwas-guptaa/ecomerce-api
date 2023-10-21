@@ -59,5 +59,23 @@ class ProductController {
       console.log(error);
     }
   };
+
+  static productDelete =async(req,res)=>{
+    try{
+
+       const result = await ProductModel.findByIdAndDelete(req.params.id)
+
+       
+       res.status(201).json({
+        sucess:true,result,message:'product will be deleted'
+       })
+    }catch(error){
+      console.log(error)
+
+      res.status(501).json({
+        sucess:false,result:error,message:'internal server error'
+       })
+    }
+  }
 }
 module.exports = ProductController;

@@ -5,12 +5,15 @@ const api = require("./route/api");
 const dotenv = require("dotenv");
 const connectdb = require("./db/dbcon");
 const fileUpload = require("express-fileupload");
+const cors =require('cors')
 
 app.use(express.json());
 app.use(fileUpload({ useTempFiles: true }));
 
 dotenv.config({ path: ".env" });
 connectdb();
+
+app.use(cors())
 //route load
 app.use("/api", api); //localhost:3000/api
 
