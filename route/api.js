@@ -7,6 +7,7 @@ const UserController = require("../controller/UserController");
 route.post("/productinsert", ProductController.productinsert);
 route.get("/productdisplay", ProductController.productdisplay);
 route.delete("/productdelete/:id", ProductController.productDelete);
+route.post("/productUpdate/:id", ProductController.productupdate);
 //user insert
 route.post("/userinsert", UserController.userinsert);
 route.post("/verifylogin", UserController.verifylogin);

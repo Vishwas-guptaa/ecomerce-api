@@ -22,12 +22,18 @@ class ProductController {
       // console.log(myimage);
 
       // console.log(req.body);
-      const { product_name, product_price, product_rating } = req.body;
+      const { product_name, product_price, product_rating,
+        product_stock,product_category, product_detail,
+        product_discout_price} = req.body;
 
       const data = await new ProductModel({
         product_name: product_name,
         product_price: product_price,
         product_rating: product_rating,
+        product_stock:product_stock,
+        product_category:product_category,
+        product_detail:product_detail,
+        product_discout_price:product_discout_price,
         image: {
           public_id: myimages.public_id,
           url: myimages.secure_url,
@@ -56,26 +62,70 @@ class ProductController {
         data,
       });
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
   static productDelete =async(req,res)=>{
     try{
-
        const data = await ProductModel.findByIdAndDelete(req.params.id)
-
-       
        res.status(201).json({
         sucess:true,data,message:'product will be deleted'
        })
     }catch(error){
-      console.log(error)
-
+     // console.log(error)
       res.status(501).json({
         sucess:false,error,message:'internal server error'
        })
     }
   }
+
+  static productupdate = async(req, res)=>{
+    try{
+       //console.log(req.body)
+        //console.log(req.params.id)
+          //delete image code
+          const product = await ProductModel.findById(req.params.id)
+          console.log(product)
+          const imageid = product.image.public_id
+           //console.log(imageid)
+           await cloudinary.uploader.destroy(imageid)
+            //update image
+           const file = req.files.image;
+           const myimage = await cloudinary.uploader.upload(file.tempFilePath, {
+             folder: "EcomerceImage",
+           });
+
+           const { product_name, product_price, product_rating,
+            product_stock,product_category, product_detail,
+            product_discout_price} = req.body;
+
+      const productUpdate = await ProductModel.findByIdAndUpdate(req.params.id,{
+
+         product_name: product_name,
+        product_price: product_price,
+        product_rating: product_rating,
+        product_stock:product_stock,
+        product_category:product_category,
+        product_detail:product_detail,
+        product_discout_price:product_discout_price,
+        image:{
+          public_id:myimage.public_id,
+          url:myimage.secure_url
+        }
+      })   
+      await productUpdate.save()
+      res .status(200).json({ status: "sucess", message: "Product Update Successfully" });
+    }catch(error){
+      console.log(error)
+      res .status(500).json({ status: "fail", message: "Internal Server Error" });
+    }
+
+  }
+
+
+
+
+
 }
 module.exports = ProductController;
