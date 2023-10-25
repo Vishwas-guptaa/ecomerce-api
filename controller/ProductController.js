@@ -86,7 +86,7 @@ class ProductController {
         //console.log(req.params.id)
           //delete image code
           const product = await ProductModel.findById(req.params.id)
-          console.log(product)
+          //console.log(product)
           const imageid = product.image.public_id
            //console.log(imageid)
            await cloudinary.uploader.destroy(imageid)
