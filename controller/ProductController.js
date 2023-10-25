@@ -62,9 +62,30 @@ class ProductController {
         data,
       });
     } catch (error) {
+      res.status(500).json({
+        status: "failed",message:"internal server error"
+    })
       //console.log(error);
     }
   };
+
+
+  static productview = async (req, res) => {
+    try {
+      const data = await ProductModel.findById(req.params.id);
+      res.status(201).json({
+        status: true,
+        data,
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: "failed",message:"internal server error"
+    })
+        
+      //console.log(error);
+    }
+  };
+
 
   static productDelete =async(req,res)=>{
     try{
@@ -75,7 +96,7 @@ class ProductController {
     }catch(error){
      // console.log(error)
       res.status(501).json({
-        sucess:false,error,message:'internal server error'
+        sucess:"false",message:'internal server error'
        })
     }
   }

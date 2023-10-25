@@ -19,10 +19,10 @@ route.post("/productinsert", ProductController.productinsert);
 route.get("/productdisplay", ProductController.productdisplay);
 route.delete("/productdelete/:id", ProductController.productDelete);
 route.post("/productUpdate/:id", ProductController.productupdate);
-
+route.get("/productView/:id", ProductController.productview);
 // category Route
 route.post("/categoryInsert", CategoryController.categoryinsert);
 route.get("/categoryDisplay", CategoryController.categorydisplay);
 route.delete("/categoryDelete/:id", CategoryController.categoryDelete);
-
+route.get("/categoryView/:id", CategoryController.categoryView);
 module.exports = route;

@@ -57,6 +57,20 @@ class CategoryController {
         }
     };
 
+    static categoryView = async (req, res) => {
+        try {
+            const data = await CategoryModel.findById(req.params.id);
+            res
+                .status(201)
+                .json({ status: "sucess", message: "Category Find Successfully",data });
+        } catch (error) {
+            res
+                .status(201)
+                .json({ status: "fail", message: "Internal server error" });
+            console.log(error);
+        }
+    };
+
     static categoryDelete = async (req, res) => {
         try {
             const data = await CategoryModel.findByIdAndDelete(req.params.id);
