@@ -56,10 +56,10 @@ class ProductController {
 
   static productdisplay = async (req, res) => {
     try {
-      const productDetail = await ProductModel.find();
+      const data = await ProductModel.find();
       res.status(201).json({
         status: true,
-        productDetail
+        data,
       });
     } catch (error) {
       res.status(500).json({
@@ -72,10 +72,10 @@ class ProductController {
 
   static productview = async (req, res) => {
     try {
-      const data = await ProductModel.findById(req.params.id);
+      const productDetail = await ProductModel.findById(req.params.id);
       res.status(201).json({
         status: true,
-        data,
+       productDetail
       });
     } catch (error) {
       res.status(500).json({
