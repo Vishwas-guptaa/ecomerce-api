@@ -56,10 +56,10 @@ class ProductController {
 
   static productdisplay = async (req, res) => {
     try {
-      const data = await ProductModel.find();
+      const productDetail = await ProductModel.find();
       res.status(201).json({
         status: true,
-        data,
+        productDetail
       });
     } catch (error) {
       res.status(500).json({
